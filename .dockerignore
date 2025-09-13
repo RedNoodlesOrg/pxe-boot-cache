@@ -1,0 +1,7 @@
+.git
+.github
+Dockerfile*
+nginx/*.log
+nginx/cache
+*.swp
+*.tmp
