@@ -1,8 +1,8 @@
 # PXE Boot Cache
 
 Transparent proxy that serves as a cache for the pxe boot files (CoreOS).
+
 It will check the stable release stream for updates and serves always the latest release.
----
 
 ## Features
 
@@ -11,8 +11,6 @@ It will check the stable release stream for updates and serves always the latest
 * **Stampede protection**: only one worker downloads at a time; concurrent requests wait for the file to be cached.
 * **Container-native**: packaged in Docker/Podman, published to GHCR.
 * **Transparent to PXE**: clients only ever see your local endpoint (e.g. `http://coreos.rednet.lan/pxe/kernel`).
-
----
 
 ## Endpoints
 
@@ -26,8 +24,6 @@ It will check the stable release stream for updates and serves always the latest
 All artifact responses include cache headers and an `X-Cache-Status` header (`LOCAL-HIT`, `LOCAL-MISS`) to help you confirm caching behavior.
 When signature verification succeeds, responses also include an `X-FCOS-Signature: OK` header.
 
----
-
 ## How It Works
 
 1. **Resolve metadata**: On the first request, the service fetches `https://builds.coreos.fedoraproject.org/streams/stable.json` and caches it (ETag-aware).
@@ -37,8 +33,6 @@ When signature verification succeeds, responses also include an `X-FCOS-Signatur
    * Moves the file into `/var/cache/coreos-files/{component}`.
 4. **Serve locally**: On subsequent requests, files are served directly from disk (with support for HTTP range requests).
 5. **Revalidation**: The service automatically checks Fedora’s ETag for new releases; if updated, re-downloads and re-verifies the artifacts.
-
----
 
 ## Example Usage
 
